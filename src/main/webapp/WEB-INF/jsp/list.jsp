@@ -151,6 +151,57 @@
             color: #9a8a70;
             font-style: italic;
         }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .pagination a,
+        .pagination span {
+            padding: 6px 12px;
+            border: 1px solid #c8bca8;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: Arial, sans-serif;
+            text-decoration: none;
+            color: #2c2416;
+            background: #fff;
+            display: inline-block;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .pagination a:hover {
+            background: #2c2416;
+            color: #f5f0e8;
+            border-color: #2c2416;
+        }
+
+        .pagination .current {
+            background: #2c2416;
+            color: #f5f0e8;
+            border-color: #2c2416;
+            font-weight: bold;
+        }
+
+        .pagination .disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .pagination .ellipsis {
+            border: none;
+            background: none;
+            color: #9a8a70;
+            padding: 6px 4px;
+        }
     </style>
 </head>
 <body>
@@ -176,14 +227,35 @@
     </form>
 
     <%
+        // SuppressWarnings not available in JSP scriptlets — cast is safe because
+        // ListBooksServlet always sets this attribute as List<Book>
+        @SuppressWarnings("unchecked")
         List<Book> books = (List<Book>) request.getAttribute("books");
-        String sq = (String) request.getAttribute("searchQuery");
+        String sq        = (String)  request.getAttribute("searchQuery");
+        int totalBooks   = (Integer) request.getAttribute("totalBooks");
+        int totalPages   = (Integer) request.getAttribute("totalPages");
+        int currentPage  = (Integer) request.getAttribute("currentPage");
+        int pageSize     = (Integer) request.getAttribute("pageSize");
+        int fromIndex    = (currentPage - 1) * pageSize + 1;
+        int toIndex      = Math.min(currentPage * pageSize, totalBooks);
+
+        // Base URL for pagination links — preserves search query if present
+        String baseUrl = "books?";
+        if (sq != null && !sq.isEmpty()) {
+            baseUrl += "q=" + java.net.URLEncoder.encode(sq, "UTF-8") + "&";
+        }
     %>
 
+    <%-- Result info --%>
     <% if (sq != null) { %>
         <p class="result-info">
-            <%= books.size() %> result<%= books.size() != 1 ? "s" : "" %>
+            <%= totalBooks %> result<%= totalBooks != 1 ? "s" : "" %>
             for &ldquo;<%= sq %>&rdquo;
+            &mdash; showing <%= fromIndex %>&#8211;<%= toIndex %>
+        </p>
+    <% } else { %>
+        <p class="result-info">
+            <%= totalBooks %> books &mdash; showing <%= fromIndex %>&#8211;<%= toIndex %>
         </p>
     <% } %>
 
@@ -220,6 +292,56 @@
             <% } %>
             </tbody>
         </table>
+
+        <%-- Pagination controls --%>
+        <% if (totalPages > 1) { %>
+        <div class="pagination">
+
+            <%-- Prev button --%>
+            <% if (currentPage <= 1) { %>
+                <span class="disabled">&larr; Prev</span>
+            <% } else { %>
+                <a href="<%= baseUrl %>page=<%= currentPage - 1 %>">&larr; Prev</a>
+            <% } %>
+
+            <%-- Page number buttons --%>
+            <%
+                java.util.Set<Integer> pageNums = new java.util.TreeSet<Integer>();
+                pageNums.add(1);
+                pageNums.add(totalPages);
+                for (int i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                    pageNums.add(i);
+                }
+                Integer[] pageArr = pageNums.toArray(new Integer[0]);
+                for (int i = 0; i < pageArr.length; i++) {
+                    int p = pageArr[i];
+                    if (i > 0 && pageArr[i - 1] != p - 1) {
+            %>
+                        <span class="ellipsis">&hellip;</span>
+            <%
+                    }
+                    if (p == currentPage) {
+            %>
+                        <span class="current"><%= p %></span>
+            <%
+                    } else {
+            %>
+                        <a href="<%= baseUrl %>page=<%= p %>"><%= p %></a>
+            <%
+                    }
+                }
+            %>
+
+            <%-- Next button --%>
+            <% if (currentPage >= totalPages) { %>
+                <span class="disabled">Next &rarr;</span>
+            <% } else { %>
+                <a href="<%= baseUrl %>page=<%= currentPage + 1 %>">Next &rarr;</a>
+            <% } %>
+
+        </div>
+        <% } %>
+
     <% } %>
 
 </main>
