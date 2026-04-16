@@ -192,16 +192,16 @@
     var DATE_RE = /^(0?[1-9]|[12]\d|3[01])\/(0?[1-9]|1[0-2])\/(\d{2}|\d{4})$/;
 
     function validateForm() {
-        var title  = document.querySelector('[name="title"]').value.trim();
+        var title = document.querySelector('[name="title"]').value.trim();
         var author = document.querySelector('[name="author"]').value.trim();
-        var date   = document.querySelector('[name="date"]').value.trim();
+        var date = document.querySelector('[name="date"]').value.trim();
         var genres = document.querySelector('[name="genres"]').value.trim();
 
-        if (!title)               { alert("Title is required.");   return false; }
-        if (!author)              { alert("Author is required.");  return false; }
-        if (!date)                { alert("Date is required.");    return false; }
-        if (!DATE_RE.test(date))  { alert("Date must be DD/MM/YY or DD/MM/YYYY (e.g. 14/09/2008)."); return false; }
-        if (!genres)              { alert("Genres are required."); return false; }
+        if (!title) { alert("Title is required.");   return false; }
+        if (!author) { alert("Author is required.");  return false; }
+        if (!date) { alert("Date is required.");    return false; }
+        if (!DATE_RE.test(date)) { alert("Date must be DD/MM/YY or DD/MM/YYYY (e.g. 14/09/2008)."); return false; }
+        if (!genres) { alert("Genres are required."); return false; }
 
         return true;
     }

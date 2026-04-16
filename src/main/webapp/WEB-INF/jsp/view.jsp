@@ -98,13 +98,13 @@
             font-family: Arial, sans-serif;
         }
 
-        .btn-edit   { background: #edf6e5; color: #4a7c2a; }
+        .btn-edit { background: #edf6e5; color: #4a7c2a; }
         .btn-delete { background: #faeaea; color: #a63030; }
-        .btn-back   { background: #f0ebe0; color: #5a4a32; }
+        .btn-back { background: #f0ebe0; color: #5a4a32; }
 
-        .btn-edit:hover   { background: #d9f0c8; }
+        .btn-edit:hover { background: #d9f0c8; }
         .btn-delete:hover { background: #f5d2d2; }
-        .btn-back:hover   { background: #e5dfd0; }
+        .btn-back:hover { background: #e5dfd0; }
     </style>
 </head>
 <body>
@@ -152,11 +152,11 @@
         <% } %>
 
         <div class="actions">
-            <a class="btn btn-edit"   href="edit-book?id=<%= book.getId() %>">Edit</a>
+            <a class="btn btn-edit" href="edit-book?id=<%= book.getId() %>">Edit</a>
             <a class="btn btn-delete"
                href="delete-book?id=<%= book.getId() %>"
                onclick="return confirm('Delete this book?')">Delete</a>
-            <a class="btn btn-back"   href="books">Back to List</a>
+            <a class="btn btn-back" href="books">Back to List</a>
         </div>
 
     </div>

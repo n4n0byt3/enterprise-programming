@@ -64,13 +64,13 @@ public class EditBookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idParam    = request.getParameter("id");
-        String title      = request.getParameter("title");
-        String author     = request.getParameter("author");
-        String date       = request.getParameter("date");
-        String genres     = request.getParameter("genres");
+        String idParam = request.getParameter("id");
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
+        String date = request.getParameter("date");
+        String genres = request.getParameter("genres");
         String characters = request.getParameter("characters");
-        String synopsis   = request.getParameter("synopsis");
+        String synopsis = request.getParameter("synopsis");
 
         int id;
         try {

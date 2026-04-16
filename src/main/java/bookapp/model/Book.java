@@ -7,13 +7,13 @@ package bookapp.model;
  */
 public class Book {
  
-    private int    id;
+    private int id;
     private String title;
     private String author;
-    private String date;       // VARCHAR(10) e.g. "09/14/08"
-    private String genres;     // VARCHAR(255) comma-separated genres
-    private String characters; // TEXT  comma-separated character names
-    private String synopsis;   // TEXT  book synopsis
+    private String date;
+    private String genres;
+    private String characters;
+    private String synopsis;
  
     // ── Constructors ─────────────────────────────────────────────────────────
  

@@ -12,14 +12,12 @@ import java.sql.SQLException;
  */
 public class DBConnection {
 
-    // ── Update these to match your mudfoot account ────────────────────────────
     private static final String URL =
             "jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:6306/chopracs" +
             "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 
     private static final String USER     = "chopracs";
     private static final String PASSWORD = "LowdEwfos2";
-    // ─────────────────────────────────────────────────────────────────────────
 
     static {
         try {

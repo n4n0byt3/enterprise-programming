@@ -75,11 +75,11 @@ public class ListBooksServlet extends HttpServlet {
             List<Book> pageBooks = allBooks.subList(fromIndex, toIndex);
 
             // ── Pass data to JSP ──
-            request.setAttribute("books",       pageBooks);
-            request.setAttribute("totalBooks",  totalBooks);
-            request.setAttribute("totalPages",  totalPages);
+            request.setAttribute("books", pageBooks);
+            request.setAttribute("totalBooks", totalBooks);
+            request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
-            request.setAttribute("pageSize",    PAGE_SIZE);
+            request.setAttribute("pageSize", PAGE_SIZE);
 
             request.getRequestDispatcher("/WEB-INF/jsp/list.jsp")
                    .forward(request, response);

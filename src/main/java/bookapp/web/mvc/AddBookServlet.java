@@ -40,23 +40,23 @@ public class AddBookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String title      = request.getParameter("title");
-        String author     = request.getParameter("author");
-        String date       = request.getParameter("date");
-        String genres     = request.getParameter("genres");
+        String title= request.getParameter("title");
+        String author = request.getParameter("author");
+        String date= request.getParameter("date");
+        String genres = request.getParameter("genres");
         String characters = request.getParameter("characters");
-        String synopsis   = request.getParameter("synopsis");
+        String synopsis = request.getParameter("synopsis");
 
         String error = validate(title, author, date, genres);
 
         if (error != null) {
-            request.setAttribute("error",      error);
-            request.setAttribute("title",      title);
-            request.setAttribute("author",     author);
-            request.setAttribute("date",       date);
-            request.setAttribute("genres",     genres);
+            request.setAttribute("error", error);
+            request.setAttribute("title", title);
+            request.setAttribute("author", author);
+            request.setAttribute("date", date);
+            request.setAttribute("genres", genres);
             request.setAttribute("characters", characters);
-            request.setAttribute("synopsis",   synopsis);
+            request.setAttribute("synopsis", synopsis);
             request.getRequestDispatcher("/WEB-INF/jsp/add.jsp")
                    .forward(request, response);
             return;
